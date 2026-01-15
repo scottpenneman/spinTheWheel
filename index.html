@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin The Wheel - Game Night Decision Maker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="SPIN THE WHEEL">SPIN THE WHEEL</h1>
+            <p class="tagline">Game Night Decision Maker</p>
+        </header>
+
+        <!-- Room Selection Screen -->
+        <div id="room-screen" class="screen active">
+            <div class="room-container">
+                <div class="room-option">
+                    <h2>Create New Room</h2>
+                    <p>Start a new game night session</p>
+                    <button id="create-room-btn" class="btn btn-primary">
+                        <span class="btn-text">CREATE ROOM</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="room-option">
+                    <h2>Join Existing Room</h2>
+                    <p>Enter the room code shared with you</p>
+                    <input type="text" id="room-code-input" placeholder="Enter room code" maxlength="6" autocomplete="off">
+                    <button id="join-room-btn" class="btn btn-secondary">
+                        <span class="btn-text">JOIN ROOM</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Wheel Screen -->
+        <div id="wheel-screen" class="screen">
+            <div class="room-info">
+                <span class="room-label">ROOM CODE:</span>
+                <span id="current-room-code" class="room-code"></span>
+                <button id="copy-link-btn" class="btn-icon" title="Copy invite link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+                <span id="copy-feedback" class="copy-feedback">Copied!</span>
+            </div>
+
+            <div class="players-online">
+                <span class="pulse-dot"></span>
+                <span id="player-count">1</span> player(s) connected
+            </div>
+
+            <div class="wheel-section">
+                <div class="wheel-container">
+                    <div class="wheel-pointer"></div>
+                    <canvas id="wheel-canvas" width="400" height="400"></canvas>
+                    <div class="wheel-center">
+                        <span id="wheel-center-text">SPIN!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="add-game-form">
+                    <h3>Add a Game</h3>
+                    <p class="suggestion-counter">
+                        Suggestions remaining: <span id="suggestions-left">2</span>
+                    </p>
+                    <div class="input-group">
+                        <input type="text" id="game-input" placeholder="Enter game name..." maxlength="30" autocomplete="off">
+                        <button id="add-game-btn" class="btn btn-add">
+                            <span class="btn-text">ADD</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="spin-btn" class="btn btn-spin" disabled>
+                    <span class="btn-text">SPIN THE WHEEL</span>
+                    <span class="btn-glow"></span>
+                </button>
+
+                <div class="game-list-container">
+                    <h3>Games on the Wheel (<span id="game-count">0</span>)</h3>
+                    <ul id="game-list"></ul>
+                </div>
+            </div>
+
+            <button id="leave-room-btn" class="btn btn-leave">Leave Room</button>
+        </div>
+
+        <!-- Result Modal -->
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <div class="result-container">
+                    <h2>TONIGHT WE PLAY</h2>
+                    <div id="result-text" class="result-game"></div>
+                    <div class="result-effects"></div>
+                </div>
+                <button id="close-modal-btn" class="btn btn-primary">
+                    <span class="btn-text">AWESOME!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
