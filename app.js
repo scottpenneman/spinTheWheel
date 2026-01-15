@@ -256,11 +256,14 @@ class SpinTheWheel {
         // Listen for games changes
         this.roomRef.child('games').on('value', (snapshot) => {
             const gamesData = snapshot.val() || {};
-            this.games = Object.entries(gamesData).map(([id, data]) => ({
-                id,
-                name: data.name,
-                addedBy: data.addedBy
-            }));
+            // Sort by Firebase push key to ensure consistent ordering across all clients
+            this.games = Object.entries(gamesData)
+                .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+                .map(([id, data]) => ({
+                    id,
+                    name: data.name,
+                    addedBy: data.addedBy
+                }));
             this.updateGamesList();
             this.drawWheel();
             this.updateSpinButton();
