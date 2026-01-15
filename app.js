@@ -275,7 +275,7 @@ class SpinTheWheel {
             if (spinData && spinData.timestamp > Date.now() - 30000) {
                 // Only respond to recent spins (within 30 seconds)
                 if (!this.isSpinning && spinData.startedBy !== this.userId) {
-                    this.executeSpinAnimation(spinData.targetRotation, spinData.winnerIndex);
+                    this.executeSpinAnimation(spinData.targetRotation, spinData.winnerName, false);
                 }
             }
         });
@@ -524,28 +524,29 @@ class SpinTheWheel {
         // Calculate spin
         const spins = 5 + Math.random() * 5; // 5-10 full rotations
         const winnerIndex = Math.floor(Math.random() * this.games.length);
+        const winnerName = this.games[winnerIndex].name;
         const sliceAngle = 360 / this.games.length;
         const targetAngle = 360 - (winnerIndex * sliceAngle + sliceAngle / 2);
         const targetRotation = spins * 360 + targetAngle;
 
-        // Broadcast spin to all users
+        // Broadcast spin to all users (include winner name for consistency across clients)
         const spinData = {
             targetRotation,
-            winnerIndex,
+            winnerName,
             startedBy: this.userId,
             timestamp: Date.now()
         };
 
         try {
             await this.roomRef.child('spinData').set(spinData);
-            this.executeSpinAnimation(targetRotation, winnerIndex);
+            this.executeSpinAnimation(targetRotation, winnerName, true);
         } catch (error) {
             console.error('Error starting spin:', error);
             this.showError('Failed to spin. Please try again.');
         }
     }
 
-    executeSpinAnimation(targetRotation, winnerIndex) {
+    executeSpinAnimation(targetRotation, winnerName, isInitiator) {
         if (this.isSpinning) return;
 
         this.isSpinning = true;
@@ -580,12 +581,11 @@ class SpinTheWheel {
                 this.currentRotation = targetRotation % 360;
                 this.updateSpinButton();
 
-                // Set result
-                const winner = this.games[winnerIndex];
-                if (winner) {
+                // Only the initiator sets the result to avoid race conditions
+                if (isInitiator && winnerName) {
                     this.playSound('win');
                     this.roomRef.child('result').set({
-                        game: winner.name,
+                        game: winnerName,
                         timestamp: Date.now()
                     });
                 }
