@@ -522,7 +522,7 @@ class SpinTheWheel {
         if (this.isSpinning || this.games.length < this.minGamesToSpin) return;
 
         // Calculate spin
-        const spins = 5 + Math.random() * 5; // 5-10 full rotations
+        const spins = 5 + Math.floor(Math.random() * 6); // 5-10 full rotations (must be integer)
         const winnerIndex = Math.floor(Math.random() * this.games.length);
         const winnerName = this.games[winnerIndex].name;
         const sliceAngle = 360 / this.games.length;
