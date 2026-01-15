@@ -1,27 +1,24 @@
 // === Firebase Configuration ===
 //
 // SETUP INSTRUCTIONS:
-// 1. Copy this file: cp firebase-config.example.js firebase-config.js
-// 2. Go to https://console.firebase.google.com/
-// 3. Create a new project (or use existing)
-// 4. Go to Project Settings > General > Your apps
-// 5. Click "Add app" and select Web (</>)
-// 6. Register your app (no hosting needed)
-// 7. Copy your config values into firebase-config.js
-// 8. Go to Realtime Database > Create Database
-// 9. Start in TEST MODE for development
-// 10. Deploy and enjoy!
-//
-// NOTE: firebase-config.js is gitignored to keep your credentials out of version control.
+// 1. Go to https://console.firebase.google.com/
+// 2. Create a new project (or use existing)
+// 3. Go to Project Settings > General > Your apps
+// 4. Click "Add app" and select Web (</>)
+// 5. Register your app (no hosting needed)
+// 6. Copy your config values below
+// 7. Go to Realtime Database > Create Database
+// 8. Start in TEST MODE for development
+// 9. Deploy to GitHub Pages and enjoy!
 
 window.firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyAUb9y0I5edaaEunQ04j7rOMDlbtTSuMLI",
+    authDomain: "spinthewheel-3ff22.firebaseapp.com",
+    databaseURL: "https://spinthewheel-3ff22-default-rtdb.firebaseio.com/",
+    projectId: "spinthewheel-3ff22",
+    storageBucket: "spinthewheel-3ff22.firebasestorage.app",
+    messagingSenderId: "759704265022",
+    appId: "1:759704265022:web:febe4454994d6db37b4c6f"
 };
 
 // ============================================
